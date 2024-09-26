@@ -1,0 +1,26 @@
+{
+  "name": "vp1",
+  "version": "1.0.0",
+  "description": "Veebiprogrammeerimise kursuse express.js projekt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitjaneinloo@github.com/janeinloo/vp1.git"
+  },
+  "keywords": [
+    "veebiprogrammeerimine",
+    "if24"
+  ],
+  "author": "Jan Aaron Einloo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/janeinloo/vp1/issues"
+  },
+  "homepage": "https://github.com/janeinloo/vp1#readme",
+  "dependencies": {
+    "express": "~4.16.1"
+  }
+}
