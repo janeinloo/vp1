@@ -1,13 +1,38 @@
 const monthNamesEt=["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli" ,"august", "september", "oktoober", "november", "detsember"];
 const weekdayNamesEt=["pühapäev", "esmaspäev", "teisipäev", "kolmapäev", "neljapäev", "reede", "laupäev"];
 
+
 const dateEt = function(){
 	let timeNow = new Date();
+	//let specDate = new Date("12-27-1939");
 	let dateNow = timeNow.getDate();
 	let monthNow = timeNow.getMonth();
 	let yearNow = timeNow.getFullYear();
 	let dateNowEt = dateNow + ". " + monthNamesEt[monthNow] + " " + yearNow;
 	return dateNowEt;
+}
+
+const givenDateFormatted = function(gDate){
+	let specDate = new Date(gDate);
+	return specDate.getDate() + ". " + monthNamesEt[specDate.getMonth()] + " " + specDate.getFullYear();
+}
+//tänase seoes semestri algusega semester teada, vaja küsida tänast kuupäeva
+const daysBetween = function(gDate){
+	notice = "teadmata";
+	let today = new Date();
+	let anotherDay = new Date(gDate);
+	let diff = today - anotherDay;
+	let diffDays = Math.floor(diff / (1000*60*60*24));
+	if(today==anotherDay){
+		notice = "täna";
+	}
+	else if(today < anotherDay) {
+		notice = Math.abs(diffDays) + "päeva pärast";
+	}
+	else {
+		notice = diffDays + "päeva tagasi";
+	}
+	return notice;	
 }
 
 const weekDayET = function(){
@@ -68,4 +93,4 @@ const partOfDay = function(){
 	
 	return dayPart;
 }
-module.exports = {monthsEt: monthNamesEt, weekdaysEt: weekdayNamesEt, dateEt: dateEt, weekDayEt: weekDayET, timeEt: timeFormattedET, dayPart: partOfDay};
+module.exports = {monthsEt: monthNamesEt, weekdaysEt: weekdayNamesEt, dateEt: dateEt, weekDayEt: weekDayET, timeEt: timeFormattedET, dayPart: partOfDay, givenDateFormatted: givenDateFormatted, daysBetween: daysBetween};

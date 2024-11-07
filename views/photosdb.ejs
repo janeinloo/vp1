@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="utf-8">
+  <title>Jan Aaron Einloo</title>
+</head>
+<body>
+  <img src="/banner/vp_banner_2024.png" alt="Veebiprogrammeerimise 2024 aasta kursuse bänner">
+  <h1>Jan Aaron Einloo</h1>
+  <p>see leht on loodud õppetöö raames <a href="https://www.tlu.ee" target="_blank">Tallinna ülikoolis</a> ja ei sisalda tõsiseltvõetavat sisu.</p>
+  <hr>
+  <ul>
+	<li><a href="/">Avaleht</a></li>
+  </ul>
+  <hr>
+  <h2>Galerii thumbnailide valik</h2>
+  <ul>
+  <li> <a href="/">Avaleht</a></li>
+  <% if (photos.length === 0) { %>
+    <p>Ei leitud ühtegi pilti.</p>
+    <% } else { %>
+        <% photos.forEach(photo => { %>
+		<p>Lisamise kuupäev: <%= photo.added %></p>
+        <img src="/gallery/thumbnail/<%= photo.file_name %>" alt="<%= photo.alt_text %>"> 
+    <% }); %>
+  <% } %>
+  </ul>
+ </body>
+ </html>

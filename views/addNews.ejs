@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="utf-8">
+  <title>Jan Aaron Einloo</title>
+</head>
+<body>
+  <img src="/banner/vp_banner_2024.png" alt="Veebiprogrammeerimise 2024 aasta kursuse bänner">
+  <h1>Jan Aaron Einloo</h1>
+  <p>see leht on loodud õppetöö raames <a href="https://www.tlu.ee" target="_blank">Tallinna ülikoolis</a> ja ei sisalda tõsiseltvõetavat sisu.</p>
+  <hr>
+  <ul>
+	<li><a href="/">Avaleht</a></li>
+  </ul>
+  <hr>
+  <h2>Sisesta uudis</h2>
+  <form method="POST">
+	<label for="titleInput">Uudise pealkiri: </label>
+	<input type="text" id="titleInput" minlength="3" name="titleInput" placeholder="Uudise pealkiri..." value="<%= titleInput %>">
+	<br>
+	<label for="newsInput">Uudise sisu: </label>
+	<br>
+	<textarea id="newsInput" name="newsInput" minlength="10" placeholder="Uudise sisu..." cols="100" rows="5"><%= newsInput %></textarea>
+	<br>
+	<label for="expireInput">Uudise aegumiskuupäev: </label>
+	<input type="date" id="expireInput" name="expireInput" value="<%= expireInput %>">
+	<br>
+	<input type="submit" id="newsSubmit" name="newsSubmit" value="Salvesta">
+	<p><%= notice4 %></p>
+  </form>
+  
+ </body>
+ </html>
