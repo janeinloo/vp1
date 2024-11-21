@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Jan Aaron Einloo, veebiprogrammeerimine 2024</title>
+</head>
+<body>
+	<img src="/banner/vp_banner_2024.png" alt="Veebiprogrammeerimise kursuse bänner">
+	<h1>Uudised</h1>
+	<hr>
+	<% if (user) { %>
+      <p>Sisse loginud kasutaja:  <%= user.firstName %> <%= user.lastName %></p>
+	<% } %>
+	<hr>
+	<ul>
+		<li><a href="/news/addNews">Uudise lisamine</a></li>
+		<li><a href="/news/newsdb">Uudiste lugemine</a></li>
+		<li><a href="/home">Avalehele</a></li>
+	</ul>
+	<hr>
+</body>
+</html>

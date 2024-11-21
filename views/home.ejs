@@ -9,12 +9,13 @@
   <h1>Jan Aaron Einloo</h1>
   <p>see leht on loodud õppetöö raames <a href="https://www.tlu.ee" target="_blank">Tallinna ülikoolis</a> ja ei sisalda tõsiseltvõetavat sisu.</p>
   <hr>
-  
+  <% if (user) { %>
+      <p>Sisse loginud kasutaja:  <%= user.firstName %> <%= user.lastName %></p>
+  <% } %>
   <ul>
 	<li><a href="/logout">Logi välja</a></li>
 	<li><a href="/eestifilm">Eesti film</a></li>
-	<li><a href="/addNews">Lisa uudis</a></li>
-	<li><a href="/newsdb">Loe uudiseid</a></li>
+	<li><a href="/news">Uudiste avaleht</a></li>
 	<li><a href="/photoupload">Lae üles galeriipilte</a></li>
 	<li><a href="/gallery">Vaata galeriid</a></li>
   </ul>

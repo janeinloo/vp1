@@ -12,6 +12,9 @@
   <h1>Jan Aaron</h1>
   <p>See leht on loodud õppetöö raames <a href="https://www.tlu.ee">Tallinna ülikoolis</a>, Digitehnoloogiate instituudis ja ei sisalda tõsiseltvõetavat materjali!</p>
   <hr>
+  <% if (user) { %>
+      <p>Sisse loginud kasutaja:  <%= user.firstName %> <%= user.lastName %></p>
+  <% } %>
   <ul>
 	<li><a href="/home">Avalehele</a></li>
   </ul>
