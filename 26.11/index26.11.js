@@ -381,74 +381,10 @@ app.get("/visitorsdb", (req, res)=>{
 });
 
 app.get("/gallery", checkLogin, (req, res)=>{
-	res.redirect("/gallery/1");
-});
-
-app.get("/gallery/:page", checkLogin, (req, res)=>{
-	let galleryLinks = "";
-	let page = parseInt(req.params.page);
-	if(page < 1){
-		page = 1;
-	}
-	const photoLimit = 5;
-	let skip = 0;
+	let sqlReq = "SELECT file_name, alt_text FROM vp1photos WHERE privacy = ? AND deleted IS NULL ORDER BY id DESC";
 	const privacy = 3;
-	
-	//teeme päringud, mida tuleb kindlalt üksteise järel teha
-	const galleryPageTasks = [
-		function(callback){
-			conn.execute("SELECT COUNT (id) as photos FROM vp1photos WHERE privacy =? AND deleted IS NULL", [privacy], (err, result) => {
-				if (err) {
-					return callback(err);
-				}
-				else {
-					return callback(null, result);
-				}
-			});
-		},
-		function(photoCount, callback){
-			console.log("Fotosid on: " + photoCount[0].photos);
-			if((page - 1) * photoLimit >= photoCount[0].photos){
-				page = Math.ceil(photoCount[0].photos / photoLimit);
-			}
-			console.log("Lehekülg on: " + page);
-			//lingid oleksid
-			//<a href ="/gallery/1">eelmine leht</a> | <a href="/gallery/3"järgmine leht</a>
-			if(page== 1){
-				galleryLinks = "Eelmine leht &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;";
-			}
-			else {
-				galleryLinks = '<a href="/gallery/' + (page -1) + '"> eelmine leht</a> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;';
-			}
-			if(page * photoLimit >= photoCount[0].photos){
-				galleryLinks += "järgmine leht";
-			}
-			else {
-				galleryLinks += '<a href="/gallery/' + (page +1) + '"> järgmine leht</a>';
-			}
-			return callback(null, page);
-		}
-	];
-	//async waterfall
-	async.waterfall(galleryPageTasks, (err, results)=>{
-		if(err){
-			throw err;
-		}
-		else {
-			console.log(results);
-		}
-	});
-	//Kui aadressis toodud lk on muudetud, oli vigane, siis ...
-	console.log(req.params.page);
-	/* if(page != parseInt(req.params.page)){
-		console.log("LK muutus!!!");
-		res.redirect("/gallery/" + page); */
-	//}
-	skip = (page -1) * photoLimit;
-	let sqlReq = "SELECT file_name, alt_text FROM vp1photos WHERE privacy = ? AND deleted IS NULL ORDER BY id DESC LIMIT ?,?";
-	
 	let photoList = [];
-	conn.execute(sqlReq, [privacy, skip, photoLimit], (err, result)=>{
+	conn.query(sqlReq, [privacy], (err, result)=>{
 		if(err){
 			throw err;
 		}
@@ -457,7 +393,7 @@ app.get("/gallery/:page", checkLogin, (req, res)=>{
 			for(let i = 0; i < result.length; i ++) {
 				photoList.push({href: "/gallery/thumbnail/" + result[i].file_name, alt: result[i].alt_text, fileName: result[i].file_name});
 			}
-			res.render("gallery", {listData: photoList, links: galleryLinks});
+			res.render("gallery", {listData: photoList});
 		}
 	});
 	//res.render("gallery");
@@ -466,14 +402,11 @@ app.get("/gallery/:page", checkLogin, (req, res)=>{
 const newsRouter = require("./routes/newsRoutes");
 app.use("/news", newsRouter);
 
-const filmsRouter = require("./routes/filmsRoutes");
-app.use("/eestifilm", filmsRouter);
+app.get("/eestifilm", checkLogin, (req, res)=>{
+	res.render("filmindex");
+});
 
-/* app.get("/eestifilm", checkLogin, (req, res)=>{
-	res.render("eestifilm");
-}); */
-
-/* app.get("/eestifilm/addRelations", checkLogin, (req, res)=>{
+app.get("/eestifilm/addRelations", checkLogin, (req, res)=>{
 	//võtan kasutusele async mooduli, et korraga teha mitu andmebaasipäringut
 	const filmQueries = [
 		function(callback){
@@ -521,9 +454,9 @@ app.use("/eestifilm", filmsRouter);
 		}
 	});
 	//res.render("addRelations");
-}); */
+});
 
-/* app.post("/eestifilm/addRelations", checkLogin, (req, res)=>{
+app.post("/eestifilm/addRelations", checkLogin, (req, res)=>{
 	let notice = "";
 	console.log(req.body);
 	const {personSelect, movieSelect, positionSelect, roleInput} = req.body;
@@ -544,9 +477,9 @@ app.use("/eestifilm", filmsRouter);
 		});
 	}
 	
-}); */
+});
 
-/* app.get("/eestifilm/tegelased", checkLogin, (req, res)=>{
+app.get("/eestifilm/tegelased", checkLogin, (req, res)=>{
 	let sqlReq = "SELECT first_name, last_name, birth_date FROM person";
 	let persons = [];
 	conn.query(sqlReq, (err, sqlres)=>{
@@ -563,7 +496,7 @@ app.use("/eestifilm", filmsRouter);
 		}
 	});
 	//res.render("tegelased");
-}); */
+});
 
 app.get("/photoupload", checkLogin, (req, res)=>{
 	let notice5 = "";

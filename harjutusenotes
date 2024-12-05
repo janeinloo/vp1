@@ -1,0 +1,34 @@
+Arutelu:
+
+Ülesande täitmiseks on vaja teha:
+
+1) Planeerida
+
+2) Avalehe
+Lingid: -----> Andmete sisestamine
+		-----> kokkuvõte
+		
+3) Andmete sisestamine
+Vorm, POST
+atonumber, text
+sisenemismass, number, kilod 1000, 100000
+väljumismass, number
+
+4) Andmete näitamise leht ejs
+
+5) Andmetabel
+id - INT
+truck - varchar
+weight_in - int?
+weight_out - int?
+
+
+Hiljem väljumisel kaalu märkimine
+
+"UPDATE vp1viljavedu SET weight_out = ? WHERE id = ?"
+
+Vilja kogus
+
+SELECT SUM(weight_in), SUM(weight_out) FROM vp1viljavedu WHERE weight_out IS NOT NULL
+
+<input type="number" id="carLeaveInput" name="carLeaveInput" placeholder="Väljumismass" value="Salvesta">

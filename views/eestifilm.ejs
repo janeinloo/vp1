@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="utf-8">
+  <title>Jan Aaron Einloo</title>
+</head>
+<body>
+  <img src="/banner/vp_banner_2024.png" alt="Veebiprogrammeerimise 2024 aasta kursuse bänner">
+  <h1>Jan Aaron Einloo</h1>
+  <p>see leht on loodud õppetöö raames <a href="https://www.tlu.ee" target="_blank">Tallinna ülikoolis</a> ja ei sisalda tõsiseltvõetavat sisu.</p>
+  <hr>
+  <% if (user) { %>
+      <p>Sisse loginud kasutaja:  <%= user.firstName %> <%= user.lastName %></p>
+  <% } %>
+  <h2>Eesti film</h2>
+  <ul>
+	<li><a href="/home">Avaleht</a></li>
+	<li><a href="/eestifilm/tegelased">Eesti filmitegelased</a></li>
+	<li><a href="/eestifilm/addRelations">Lisa filmitegelase seoseid</a></li>
+  </ul>
+  <hr>
+  
+ </body>
+ </html>
